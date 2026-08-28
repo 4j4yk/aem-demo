@@ -1,6 +1,7 @@
 .columns > div {
   display: flex;
   flex-direction: column;
+  gap: 24px;
 }
 
 .columns img {
@@ -8,7 +9,16 @@
 }
 
 .columns > div > div {
+  box-sizing: border-box;
   order: 1;
+  padding: 28px;
+  border: 1px solid var(--border-color);
+  border-radius: 0;
+  background: var(--surface-color);
+}
+
+.columns li::marker {
+  color: var(--link-color);
 }
 
 .columns > div > .columns-img-col {

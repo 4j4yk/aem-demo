@@ -5,23 +5,67 @@
 
 .hero {
   position: relative;
-  padding: 40px 24px;
-  min-height: 300px;
+  box-sizing: border-box;
+  display: grid;
+  align-items: end;
+  min-height: min(720px, calc(100svh - var(--nav-height)));
+  padding: 96px 24px 72px;
+  background: var(--dark-color);
+  color: #eef5f0;
+  overflow: hidden;
+}
+
+.hero::after {
+  content: 'EDS';
+  position: absolute;
+  right: -0.08em;
+  bottom: -0.24em;
+  color: #183f30;
+  font-family: var(--heading-font-family);
+  font-size: clamp(12rem, 35vw, 34rem);
+  font-weight: 700;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.hero .hero-body {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 1200px);
+  margin: auto;
+}
+
+.hero .hero-eyebrow {
+  margin-bottom: 20px;
+  color: var(--accent-color);
+  font-size: var(--body-font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.14em;
 }
 
 .hero h1 {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  color: var(--background-color);
+  max-width: 850px;
+  margin: 0;
+  color: #fff;
+  font-size: clamp(3.2rem, 8vw, 6.8rem);
+  line-height: 0.92;
 }
 
-.hero picture {
+.hero h1 + p {
+  max-width: 680px;
+  margin-top: 28px;
+  color: #c7d8cf;
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  line-height: 1.5;
+}
+
+.hero .hero-media {
   position: absolute;
-  z-index: -1;
+  z-index: 0;
   inset: 0;
-  object-fit: cover;
   box-sizing: border-box;
+  opacity: 0.16;
+  mix-blend-mode: luminosity;
 }
 
 .hero img {
@@ -32,6 +76,6 @@
 
 @media (width >= 900px) {
   .hero {
-    padding: 40px 32px;
+    padding: 128px 32px 96px;
   }
 }

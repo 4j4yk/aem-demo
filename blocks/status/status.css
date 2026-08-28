@@ -1,0 +1,59 @@
+.status {
+  border: 1px solid var(--border-color);
+  border-radius: 0;
+  background: var(--surface-color);
+  overflow: hidden;
+}
+
+.status .status-row {
+  display: grid;
+  gap: 8px;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.status .status-row:last-child {
+  border-bottom: 0;
+}
+
+.status .status-feature {
+  color: var(--dark-color);
+  font-weight: 700;
+}
+
+.status .status-state {
+  width: fit-content;
+  border-radius: 2px;
+  padding: 3px 10px;
+  background: var(--light-color);
+  color: var(--dark-color);
+  font-size: var(--body-font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.status .status-state[data-state='implemented'] {
+  background: #dff8e9;
+  color: #075d3c;
+}
+
+.status .status-state[data-state='planned'] {
+  background: #fff3cd;
+  color: #765600;
+}
+
+.status .status-evidence {
+  color: var(--muted-color);
+  font-size: var(--body-font-size-s);
+}
+
+.status p {
+  margin: 0;
+}
+
+@media (width >= 700px) {
+  .status .status-row {
+    grid-template-columns: 1.1fr 140px 1.5fr;
+    align-items: center;
+  }
+}

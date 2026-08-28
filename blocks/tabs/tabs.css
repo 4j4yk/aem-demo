@@ -1,0 +1,37 @@
+.tabs .tabs-list {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+}
+
+.tabs .tabs-list button {
+  flex: 0 0 auto;
+  margin: 0;
+  border: 1px solid var(--border-color);
+  border-radius: 0;
+  padding: 10px 18px;
+  background: var(--surface-color);
+  color: var(--dark-color);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tabs .tabs-list button[aria-selected='true'] {
+  border-color: var(--dark-color);
+  background: var(--dark-color);
+  color: var(--accent-color);
+}
+
+.tabs .tabs-panels {
+  min-height: 180px;
+  border: 1px solid var(--border-color);
+  border-radius: 0;
+  padding: 28px;
+  background: var(--surface-color);
+}
+
+.tabs .tabs-panel > :first-child {
+  margin-top: 0;
+}

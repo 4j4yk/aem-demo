@@ -12,12 +12,16 @@
 
 :root {
   /* colors */
-  --background-color: white;
-  --light-color: #f8f8f8;
-  --dark-color: #505050;
-  --text-color: #131313;
-  --link-color: #3b63fb;
-  --link-hover-color: #1d3ecf;
+  --background-color: #f7f8f5;
+  --surface-color: #fff;
+  --light-color: #eaf0eb;
+  --dark-color: #10291f;
+  --text-color: #183126;
+  --muted-color: #5c6e65;
+  --link-color: #087f5b;
+  --link-hover-color: #045c42;
+  --accent-color: #d9ff5b;
+  --border-color: #d8e0da;
 
   /* fonts */
   --body-font-family: roboto, roboto-fallback, sans-serif;
@@ -37,7 +41,7 @@
   --heading-font-size-xs: 22px;
 
   /* nav height */
-  --nav-height: 64px;
+  --nav-height: 72px;
 }
 
 /* fallback fonts */
@@ -78,6 +82,11 @@ body {
   font-family: var(--body-font-family);
   font-size: var(--body-font-size-m);
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: none;
 }
 
 body.appear {
@@ -107,8 +116,10 @@ h6 {
   margin-top: 0.8em;
   margin-bottom: 0.25em;
   font-family: var(--heading-font-family);
-  font-weight: 600;
-  line-height: 1.25;
+  color: var(--dark-color);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.08;
   scroll-margin: 40px;
 }
 
@@ -136,14 +147,38 @@ pre {
 
 pre {
   padding: 16px;
-  border-radius: 8px;
+  border-left: 6px solid var(--link-color);
   background-color: var(--light-color);
   overflow-x: auto;
   white-space: pre;
 }
 
-main > div {
-  margin: 40px 16px;
+main > .section.highlight {
+  position: relative;
+  margin-right: 0;
+  margin-left: 0;
+  padding: 80px 20px;
+  background: var(--dark-color);
+  color: #eef5f0;
+}
+
+main > .section.highlight h2 {
+  color: var(--accent-color);
+}
+
+main > .section.highlight > .default-content-wrapper > p {
+  max-width: 680px;
+  color: #b8c9c0;
+}
+
+::selection {
+  background: var(--accent-color);
+  color: var(--dark-color);
+}
+
+:focus-visible {
+  outline: 3px solid var(--accent-color);
+  outline-offset: 4px;
 }
 
 input,
@@ -179,10 +214,10 @@ button.button {
   max-width: 100%;
   margin: 0;
   border: 2px solid transparent;
-  border-radius: 2.4em;
+  border-radius: 2px;
   padding: 0.5em 1.2em;
   font: inherit;
-  font-weight: 500;
+  font-weight: 700;
   line-height: 1.25;
   text-decoration: none;
   cursor: pointer;
@@ -199,18 +234,18 @@ button.button:disabled {
 
 a.button.primary,
 button.button.primary {
-  border-color: var(--text-color);
-  background-color: var(--text-color);
-  color: var(--background-color);
+  border-color: var(--accent-color);
+  background-color: var(--accent-color);
+  color: var(--dark-color);
 }
 
 a.button.primary:hover,
 a.button.primary:focus-visible,
 button.button.primary:hover,
 button.button.primary:focus-visible {
-  border-color: var(--dark-color);
-  background-color: var(--dark-color);
-  color: var(--light-color);
+  border-color: #fff;
+  background-color: #fff;
+  color: var(--dark-color);
 }
 
 a.button.primary[aria-disabled="true"],
@@ -226,9 +261,15 @@ button.button.primary:disabled:focus-visible {
 
 a.button.secondary,
 button.button.secondary {
-  border-color: var(--text-color);
+  border-color: var(--link-color);
   background-color: transparent;
-  color: var(--text-color);
+  color: var(--link-color);
+}
+
+@media (width >= 900px) {
+  main > .section.highlight {
+    padding: 112px 32px;
+  }
 }
 
 a.button.secondary:hover,
@@ -297,7 +338,7 @@ main img {
 
 /* sections */
 main > .section {
-  margin: 40px 0;
+  margin: 72px 0;
 }
 
 main > .section > div {
@@ -311,6 +352,10 @@ main > .section:first-of-type {
 }
 
 @media (width >= 900px) {
+  main > .section {
+    margin: 104px 0;
+  }
+
   main > .section > div {
     padding: 0 32px;
   }

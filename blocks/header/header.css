@@ -1,5 +1,6 @@
 /* header and nav layout */
 header .nav-wrapper {
+  border-bottom: 1px solid rgb(216 224 218 / 80%);
   background-color: var(--background-color);
   width: 100%;
   z-index: 2;
@@ -143,8 +144,10 @@ header nav[aria-expanded='true'] .nav-hamburger-icon::after {
 header .nav-brand {
   grid-area: brand;
   flex-basis: 128px;
+  color: var(--dark-color);
   font-size: var(--heading-font-size-s);
   font-weight: 700;
+  letter-spacing: -0.02em;
   line-height: 1;
 }
 

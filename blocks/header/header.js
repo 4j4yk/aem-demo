@@ -118,6 +118,20 @@ export default async function decorate(block) {
   const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
   const fragment = await loadFragment(navPath);
 
+  if (!fragment) {
+    const fallback = document.createElement('div');
+    fallback.className = 'nav-wrapper';
+    fallback.innerHTML = `<nav id="nav" aria-label="Primary navigation">
+      <div class="nav-brand"><p><a href="/">AEM Skills Lab</a></p></div>
+      <div class="nav-sections"><div class="default-content-wrapper"><ul>
+        <li><a href="#capabilities">Capabilities</a></li>
+        <li><a href="https://github.com/4j4yk/aem-demo">Source</a></li>
+      </ul></div></div>
+    </nav>`;
+    block.replaceChildren(fallback);
+    return;
+  }
+
   // decorate nav DOM
   block.textContent = '';
   const nav = document.createElement('nav');

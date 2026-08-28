@@ -3,17 +3,53 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
 }
 
 .cards > ul > li {
-  border: 1px solid #dadada;
-  background-color: var(--background-color);
+  position: relative;
+  min-height: 250px;
+  border: 1px solid rgb(217 255 91 / 18%);
+  border-radius: 0;
+  background: #173b2e;
+  overflow: hidden;
+  transition: border-color 150ms ease, background 150ms ease;
+}
+
+.cards > ul > li::before {
+  content: var(--card-index);
+  display: block;
+  margin: 24px 24px 0;
+  color: var(--accent-color);
+  font-family: var(--heading-font-family);
+  font-size: var(--body-font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.cards > ul > li:hover {
+  border-color: rgb(217 255 91 / 55%);
+  background: #1d4939;
 }
 
 .cards .cards-card-body {
-  margin: 16px;
+  margin: 18px 24px 28px;
+  color: #b8c9c0;
+  font-size: var(--body-font-size-s);
+}
+
+.cards .cards-card-body strong {
+  color: #fff;
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-m);
+  line-height: 1.15;
+}
+
+@media (width >= 900px) {
+  .cards > ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .cards .cards-card-image {

@@ -11,6 +11,14 @@ export default async function decorate(block) {
   const footerPath = footerMeta ? new URL(footerMeta, window.location).pathname : '/footer';
   const fragment = await loadFragment(footerPath);
 
+  if (!fragment) {
+    const fallback = document.createElement('div');
+    fallback.innerHTML = `<p><strong>AEM Edge Delivery Skills Lab</strong></p>
+      <p>Author-first. Performance-minded. Built with vanilla JavaScript and CSS.</p>`;
+    block.replaceChildren(fallback);
+    return;
+  }
+
   // decorate footer DOM
   block.textContent = '';
   const footer = document.createElement('div');

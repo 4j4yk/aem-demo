@@ -1,9 +1,11 @@
-# Your Project's Title...
-Your project's description...
+# AEM Edge Delivery Skills Lab
+
+A hands-on showcase built with Adobe Experience Manager and Edge Delivery Services. The site demonstrates author-first content, reusable blocks, responsive design, accessible interactions, progressive page loading, and the preview-to-publish workflow.
 
 ## Environments
-- Preview: https://main--{repo}--{owner}.aem.page/
-- Live: https://main--{repo}--{owner}.aem.live/
+- Preview: https://main--aem-demo--4j4yk.aem.page/
+- Live: https://main--aem-demo--4j4yk.aem.live/
+- Authoring: https://da.live/#/4j4yk/aem-demo
 
 ## Documentation
 

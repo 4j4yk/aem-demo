@@ -74,11 +74,38 @@ function buildWidgetAutoBlocks(main) {
 }
 
 /**
+ * Promotes the opening image, heading, and introduction into a hero block.
+ * This keeps the document simple for authors while giving the lead story a
+ * dedicated, reusable presentation layer.
+ * @param {Element} main The main content container
+ */
+function buildHeroAutoBlock(main) {
+  const firstSection = main.querySelector(':scope > div');
+  const heading = firstSection?.querySelector(':scope > h1');
+  if (!heading || firstSection.querySelector(':scope > .hero')) return;
+
+  const heroContent = [];
+  const previous = heading.previousElementSibling;
+  if (previous?.querySelector('picture')) heroContent.push(previous);
+  heroContent.push(heading);
+
+  let sibling = heading.nextElementSibling;
+  while (sibling && !sibling.matches('h2, h3, div[class]')) {
+    const next = sibling.nextElementSibling;
+    heroContent.push(sibling);
+    sibling = next;
+  }
+
+  firstSection.prepend(buildBlock('hero', { elems: heroContent }));
+}
+
+/**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
 function buildAutoBlocks(main) {
   try {
+    buildHeroAutoBlock(main);
     // auto load `*/fragments/*` references
     const fragments = [...main.querySelectorAll('a[href*="/fragments/"]')].filter((f) => !f.closest('.fragment'));
     if (fragments.length > 0) {
@@ -151,6 +178,8 @@ export function decorateMain(main) {
   decorateIcons(main);
   buildAutoBlocks(main);
   decorateSections(main);
+  const capabilities = main.querySelector('.section.highlight');
+  if (capabilities) capabilities.id = 'capabilities';
   decorateBlocks(main);
   decorateButtons(main);
 }
