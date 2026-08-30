@@ -59,6 +59,17 @@
   line-height: 1.5;
 }
 
+.hero a:not(.button) {
+  color: #fff;
+  text-decoration-color: var(--accent-color);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.hero a:not(.button):hover {
+  color: var(--accent-color);
+}
+
 .hero .hero-media {
   position: absolute;
   z-index: 0;
