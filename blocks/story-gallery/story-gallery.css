@@ -1,0 +1,37 @@
+.story-gallery > ul {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.story-gallery figure {
+  margin: 0;
+  background: var(--surface-color);
+}
+
+.story-gallery picture,
+.story-gallery img {
+  display: block;
+  width: 100%;
+}
+
+.story-gallery img {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.story-gallery figcaption {
+  border-left: 4px solid var(--accent-color);
+  padding: 12px 16px;
+  color: var(--muted-color);
+  font-size: var(--body-font-size-xs);
+}
+
+@media (width >= 700px) {
+  .story-gallery > ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

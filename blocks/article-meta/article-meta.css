@@ -1,0 +1,35 @@
+.article-meta {
+  margin: 24px 0 36px;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  padding: 18px 0;
+}
+
+.article-meta .article-meta-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin: 0;
+  font-size: var(--body-font-size-xs);
+}
+
+.article-meta dt {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.article-meta dd {
+  margin: 0;
+  color: var(--muted-color);
+}
+
+.article-meta dd + dt + dd::before {
+  content: '·';
+  margin-right: 24px;
+  color: var(--link-color);
+  font-weight: 700;
+}

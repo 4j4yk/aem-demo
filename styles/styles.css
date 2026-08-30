@@ -361,6 +361,44 @@ main > .section:first-of-type {
   }
 }
 
+body.article main > .section:first-child .default-content-wrapper,
+body.article main > .section:first-child .hero-wrapper,
+body.article main > .section:not(:first-child) > div {
+  max-width: 860px;
+}
+
+body.article main > .section:first-child .hero h1 {
+  max-width: 920px;
+}
+
+body.article main > .section:first-child .hero picture,
+body.article main > .section:first-child .hero img {
+  width: 100%;
+}
+
+body.article main > .section:first-child .hero img {
+  max-height: 620px;
+  object-fit: cover;
+}
+
+body.article main blockquote {
+  margin: 48px 0;
+  border-left: 8px solid var(--accent-color);
+  padding: 8px 0 8px 28px;
+  color: var(--dark-color);
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-l);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+body.article main .default-content-wrapper > p,
+body.article main .default-content-wrapper > ul,
+body.article main .default-content-wrapper > ol {
+  max-width: 760px;
+}
+
 /* section metadata */
 main .section.light,
 main .section.highlight {
