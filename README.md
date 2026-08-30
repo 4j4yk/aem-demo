@@ -29,13 +29,17 @@ documented path to analytics, experimentation, DAM, and full-stack services.
 - DA.live document authoring with separate preview and publish operations
 - AEM Edge Delivery Services content, media, and code delivery
 - Authorable blocks decorated with semantic HTML, CSS, and vanilla JavaScript
-- Automotive newsroom cards with client-side search and category filtering
+- Indexed automotive newsroom with search, filtering, sorting, pagination, and URL state
 - Structured article metadata with calculated reading time
 - Responsive editorial galleries and optimized AEM picture renditions
 - Progressive enhancement and delayed loading of non-critical behavior
 - Keyboard-safe interactions, visible focus, semantic controls, and live status
 - Git-based code review, ESLint, Stylelint, and branch-aware AEM delivery
 - Cloudflare Worker routing, TLS, CDN caching, and AEM push invalidation
+- Consent-aware analytics event layer and an on-page diagnostics panel
+- Stable-session editorial experimentation with view and conversion events
+- Canonical, Open Graph, Twitter Card, JSON-LD, sitemap, RSS, and robots metadata
+- Playwright journeys, axe accessibility checks, Lighthouse budgets, and link checks
 - Architecture decisions, content contracts, and implementation-status evidence
 
 ## Architecture
@@ -104,16 +108,18 @@ Each story has a title, description, hero image, author, publication date,
 category, tags, region, reading time, and destination URL. The authoring contract
 is documented in [docs/newsroom-content-model.md](docs/newsroom-content-model.md).
 
-### Newsroom block
+### Indexed newsroom block
 
-Every authored row represents one story. The decorator:
+The block reads `/stories-index.json`, validates the content contract, and falls
+back to authored rows if the index cannot be loaded. The decorator:
 
-- converts rows into semantic list items;
-- optimizes authored images through AEM media delivery;
-- derives the available filters from authored categories;
-- builds searchable text from the card content;
-- updates a polite live-region result count; and
-- preserves useful content when JavaScript or individual cells are missing.
+- creates semantic story cards and optimized AEM media URLs;
+- searches across title, description, category, tags, author, and region;
+- derives category filters from indexed content;
+- sorts by newest or oldest publication date;
+- paginates with an accessible load-more control;
+- stores search, category, and sort state in the URL; and
+- preserves authored fallback content when the index is unavailable.
 
 ### Article metadata block
 
@@ -132,6 +138,7 @@ descriptive alternative text, and readable captions.
 | --- | --- |
 | `hero` | Promotes the opening image, title, summary, and calls to action |
 | `newsroom` | Searchable and filterable editorial story collection |
+| `related-stories` | Index-driven recommendations based on article category |
 | `article-meta` | Article byline, taxonomy, region, date, and reading time |
 | `story-gallery` | Responsive editorial figures and captions |
 | `cards` | General reusable capability and workflow cards |
@@ -140,6 +147,8 @@ descriptive alternative text, and readable captions.
 | `accordion` | Disclosure-based architecture explanations |
 | `stats` | Outcome and implementation metrics |
 | `status` | Implemented, simulated, and planned capability reporting |
+| `experiment` | Stable-session control/challenger content selection |
+| `analytics-debugger` | Consent and event-stream diagnostics for demonstrations |
 | `fragment` | Shared navigation and footer composition |
 | `metadata` | Removes delivery metadata from rendered page content |
 
@@ -191,10 +200,11 @@ npx -y @adobe/aem-cli up
 The local proxy opens at `http://localhost:3000` and combines local experience
 code with AEM preview content.
 
-Run both code-quality checks before committing:
+Run code-quality and browser checks before committing:
 
 ```sh
 npm run lint
+npm run test:e2e
 ```
 
 ## Repository structure
@@ -241,12 +251,12 @@ The current release supplies evidence for AEM authoring, component development,
 HTML, CSS, JavaScript, HTTP/CDN behavior, accessibility, responsive design,
 testing, troubleshooting, architecture communication, and production delivery.
 
-Planned releases extend the portfolio toward common full-stack AEM role needs:
+The next implementation boundary extends the portfolio toward full-stack AEM
+role needs:
 
-1. Analytics event taxonomy and EDS experimentation.
-2. Spring Boot REST service, PostgreSQL, OpenAPI, health checks, and tests.
-3. A bounded React experience loaded from an authorable block.
-4. Traditional AEM as a Cloud Service sample using HTL, Sling Models, OSGi,
+1. Spring Boot REST service, PostgreSQL, OpenAPI, health checks, and tests.
+2. A bounded React experience loaded from an authorable block.
+3. Traditional AEM as a Cloud Service sample using HTL, Sling Models, OSGi,
    editable templates, Dispatcher configuration, and AEM Mocks.
 
 ## Implementation status
@@ -260,8 +270,11 @@ Planned releases extend the portfolio toward common full-stack AEM role needs:
 | GitHub code delivery | Implemented |
 | Cloudflare custom domain and Worker | Implemented |
 | Automated Cloudflare push invalidation | Implemented |
-| Adobe Analytics event layer | Planned |
-| EDS experimentation | Planned |
+| Indexed discovery, related content, and URL state | Implemented |
+| Consent-aware analytics event layer and debugger | Implemented demonstration |
+| Stable-session editorial experimentation | Implemented demonstration |
+| SEO, structured data, sitemap, and RSS | Implemented |
+| Playwright, axe, Lighthouse, and link CI gates | Implemented |
 | AEM Assets API integration | Architecture demonstration planned |
 | Spring Boot and PostgreSQL integration | Planned |
 | Traditional AEM component sample | Planned |

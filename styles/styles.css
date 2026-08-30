@@ -392,16 +392,33 @@ body.article main blockquote {
   line-height: 1.2;
 }
 
-/* stylelint-disable-next-line no-descending-specificity */
+.breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 24px;
+  padding: 0;
+  color: var(--muted-color);
+  font-size: var(--body-font-size-xs);
+  list-style: none;
+}
+
+.breadcrumbs li + li::before {
+  content: '/';
+  margin-right: 8px;
+  color: var(--border-color);
+}
+
+/* stylelint-disable no-descending-specificity */
 body.article main .default-content-wrapper > p,
 body.article main .default-content-wrapper > ul,
 body.article main .default-content-wrapper > ol {
   max-width: 760px;
 }
+/* stylelint-enable no-descending-specificity */
 
 /* section metadata */
-main .section.light,
-main .section.highlight {
+main .section.light {
   background-color: var(--light-color);
   margin: 0;
   padding: 40px 0;

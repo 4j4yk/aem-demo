@@ -1,0 +1,40 @@
+.related-stories > ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.related-stories li {
+  border-bottom: 4px solid var(--dark-color);
+  background: var(--surface-color);
+}
+
+.related-stories picture,
+.related-stories img {
+  display: block;
+  width: 100%;
+}
+
+.related-stories img {
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.related-stories h3,
+.related-stories p {
+  margin-right: 18px;
+  margin-left: 18px;
+}
+
+.related-stories h3 {
+  font-size: var(--heading-font-size-s);
+}
+
+.related-stories p {
+  margin-bottom: 20px;
+  color: var(--muted-color);
+  font-size: var(--body-font-size-xs);
+}

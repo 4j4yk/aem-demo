@@ -1,0 +1,14 @@
+.experiment {
+  border-left: 8px solid var(--accent-color);
+  padding: 24px;
+  background: var(--surface-color);
+}
+
+.experiment .experiment-badge {
+  margin: 0 0 12px;
+  color: var(--link-color);
+  font-size: var(--body-font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}

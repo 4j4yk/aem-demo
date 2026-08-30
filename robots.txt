@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://aem-demo.ajayk.xyz/sitemap.xml

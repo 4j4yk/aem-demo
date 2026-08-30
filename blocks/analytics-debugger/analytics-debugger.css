@@ -1,0 +1,40 @@
+.analytics-debugger details {
+  border: 1px solid var(--border-color);
+  background: var(--surface-color);
+}
+
+.analytics-debugger summary {
+  padding: 16px 20px;
+  color: var(--dark-color);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.analytics-debugger-consent {
+  margin: 0;
+  border-top: 1px solid var(--border-color);
+  padding: 12px 20px;
+  color: var(--muted-color);
+  font-size: var(--body-font-size-xs);
+}
+
+.analytics-debugger-events {
+  display: grid;
+  gap: 8px;
+  max-height: 360px;
+  margin: 0;
+  padding: 16px 20px 20px 48px;
+  overflow: auto;
+  font-size: var(--body-font-size-xs);
+}
+
+.analytics-debugger-events li strong,
+.analytics-debugger-events li code {
+  display: block;
+}
+
+.analytics-debugger-events li code {
+  margin-top: 3px;
+  color: var(--muted-color);
+  white-space: normal;
+}

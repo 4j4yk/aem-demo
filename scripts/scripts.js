@@ -169,6 +169,74 @@ function decorateButtons(main) {
   });
 }
 
+function ensureMeta(selector, attributes) {
+  let element = document.head.querySelector(selector);
+  if (!element) {
+    element = document.createElement('meta');
+    document.head.append(element);
+  }
+  Object.entries(attributes).forEach(([name, value]) => element.setAttribute(name, value));
+}
+
+function decorateDiscoverability(main) {
+  const canonicalUrl = new URL(window.location.pathname, 'https://aem-demo.ajayk.xyz').href;
+  let canonical = document.head.querySelector('link[rel="canonical"]');
+  if (!canonical) {
+    canonical = document.createElement('link');
+    canonical.rel = 'canonical';
+    document.head.append(canonical);
+  }
+  canonical.href = canonicalUrl;
+  const description = document.head.querySelector('meta[name="description"]')?.content
+    || main.querySelector('h1 + p')?.textContent.trim() || '';
+  const image = main.querySelector('picture img')?.src;
+  ensureMeta('meta[property="og:title"]', { property: 'og:title', content: document.title });
+  ensureMeta('meta[property="og:description"]', { property: 'og:description', content: description });
+  ensureMeta('meta[property="og:url"]', { property: 'og:url', content: canonicalUrl });
+  ensureMeta('meta[property="og:type"]', { property: 'og:type', content: document.body.classList.contains('article') ? 'article' : 'website' });
+  ensureMeta('meta[name="twitter:card"]', { name: 'twitter:card', content: 'summary_large_image' });
+  if (image) ensureMeta('meta[property="og:image"]', { property: 'og:image', content: new URL(image, window.location).href });
+
+  const h1 = main.querySelector('h1');
+  if (!h1 || document.head.querySelector('script[data-aem-structured-data]')) return;
+  const data = document.createElement('script');
+  data.type = 'application/ld+json';
+  data.dataset.aemStructuredData = 'true';
+  data.textContent = JSON.stringify(document.body.classList.contains('article') ? {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: h1.textContent.trim(),
+    description,
+    image: image ? [new URL(image, window.location).href] : undefined,
+    mainEntityOfPage: canonicalUrl,
+    publisher: { '@type': 'Organization', name: 'AEM Automotive Experience Lab' },
+  } : {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'AEM Automotive Experience Lab',
+    url: canonicalUrl,
+    description,
+  });
+  document.head.append(data);
+}
+
+function buildArticleBreadcrumbs(main) {
+  if (!document.body.classList.contains('article') || main.querySelector('.breadcrumbs')) return;
+  const h1 = main.querySelector('h1');
+  if (!h1) return;
+  const nav = document.createElement('nav');
+  nav.className = 'breadcrumbs';
+  nav.setAttribute('aria-label', 'Breadcrumb');
+  const list = document.createElement('ol');
+  list.innerHTML = '<li><a href="/">Newsroom</a></li>';
+  const current = document.createElement('li');
+  current.textContent = h1.textContent.trim();
+  current.setAttribute('aria-current', 'page');
+  list.append(current);
+  nav.append(list);
+  h1.closest('.hero')?.prepend(nav);
+}
+
 /**
  * Decorates the main element.
  * @param {Element} main The main element
@@ -182,6 +250,8 @@ export function decorateMain(main) {
   if (capabilities) capabilities.id = 'capabilities';
   decorateBlocks(main);
   decorateButtons(main);
+  decorateDiscoverability(main);
+  buildArticleBreadcrumbs(main);
 }
 
 /**
@@ -233,6 +303,7 @@ async function loadLazy(doc) {
  * without impacting the user experience.
  */
 function loadDelayed() {
+  import('./analytics.js');
   import('./consent-check.js');
   // load anything that can be postponed to the latest here
 }
@@ -244,3 +315,11 @@ async function loadPage() {
 }
 
 loadPage();
+
+/** Enable the DA.live in-context preview only when its explicit query flag is present. */
+(async function loadDaPreview() {
+  if (!new URL(window.location.href).searchParams.has('dapreview')) return;
+  // eslint-disable-next-line import/no-unresolved
+  const { default: daPreview } = await import('https://da.live/scripts/dapreview.js');
+  daPreview(loadPage);
+}());

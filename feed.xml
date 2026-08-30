@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"><channel>
+  <title>AEM Automotive Experience Lab</title>
+  <link>https://aem-demo.ajayk.xyz/</link>
+  <description>Independent automotive technology and community stories demonstrating AEM engineering.</description>
+  <item><title>Engineering an electric platform around people</title><link>https://aem-demo.ajayk.xyz/stories/electric-platform</link><pubDate>Sat, 29 Aug 2026 12:00:00 GMT</pubDate></item>
+  <item><title>Inside the connected vehicle studio</title><link>https://aem-demo.ajayk.xyz/stories/digital-factory</link><pubDate>Fri, 28 Aug 2026 12:00:00 GMT</pubDate></item>
+  <item><title>Designing batteries for a second life</title><link>https://aem-demo.ajayk.xyz/stories/battery-circularity</link><pubDate>Wed, 26 Aug 2026 12:00:00 GMT</pubDate></item>
+  <item><title>Mobility designed for every generation</title><link>https://aem-demo.ajayk.xyz/stories/accessible-mobility</link><pubDate>Mon, 24 Aug 2026 12:00:00 GMT</pubDate></item>
+</channel></rss>
