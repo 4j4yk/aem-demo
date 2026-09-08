@@ -46,6 +46,11 @@
   line-height: 1.15;
 }
 
+.cards .cards-card-body h3,
+.cards .cards-card-body h3 a {
+  color: #fff;
+}
+
 @media (width >= 900px) {
   .cards > ul {
     grid-template-columns: repeat(3, 1fr);

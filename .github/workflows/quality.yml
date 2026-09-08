@@ -17,13 +17,19 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npx playwright install --with-deps chromium
-      - name: Start AEM local proxy
-        run: npx -y @adobe/aem-cli up --no-open &
-      - name: Wait for local site
-        run: npx wait-on http://localhost:3000
+      - name: Start AEM local proxy and wait for readiness
+        run: |
+          npx -y @adobe/aem-cli up --no-open > /tmp/aem-cli.log 2>&1 &
+          echo $! > /tmp/aem-cli.pid
+          npx wait-on --timeout 120000 http://localhost:3000
       - run: npm run test:e2e
       - name: Lighthouse budgets
         run: npx -y @lhci/cli autorun
+      - name: Stop AEM local proxy
+        if: always()
+        run: |
+          test ! -f /tmp/aem-cli.pid || kill "$(cat /tmp/aem-cli.pid)" || true
+          test -f /tmp/aem-cli.log && tail -n 100 /tmp/aem-cli.log || true
 
   links:
     runs-on: ubuntu-latest
