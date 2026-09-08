@@ -19,7 +19,9 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - name: Start AEM local proxy and wait for readiness
         run: |
-          npx -y @adobe/aem-cli up --no-open > /tmp/aem-cli.log 2>&1 &
+          npx -y @adobe/aem-cli up --no-open \
+            --url https://main--aem-demo--4j4yk.aem.live \
+            > /tmp/aem-cli.log 2>&1 &
           echo $! > /tmp/aem-cli.pid
           npx wait-on --timeout 120000 http://localhost:3000
       - run: npm run test:e2e
