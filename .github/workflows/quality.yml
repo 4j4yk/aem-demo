@@ -17,13 +17,28 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npx playwright install --with-deps chromium
-      - name: Start AEM local proxy
-        run: npx -y @adobe/aem-cli up --no-open &
-      - name: Wait for local site
-        run: npx wait-on http://localhost:3000
-      - run: npm run test:e2e
+      - name: Select AEM code preview
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+        run: |
+          ref="${HEAD_REF:-main}"
+          echo "TEST_BASE_URL=https://${ref//\//-}--aem-demo--4j4yk.aem.live" >> "$GITHUB_ENV"
+      - name: Test published AEM content
+        run: npx playwright test tests/newsroom.spec.js
+      - name: Start local block server and wait for readiness
+        run: |
+          python3 -m http.server 3000 > /tmp/aem-blocks.log 2>&1 &
+          echo $! > /tmp/aem-blocks.pid
+          npx wait-on --timeout 30000 http://localhost:3000
+      - name: Test aviation catalog block
+        run: npx playwright test tests/aviation-catalog.spec.js
       - name: Lighthouse budgets
         run: npx -y @lhci/cli autorun
+      - name: Stop local block server
+        if: always()
+        run: |
+          test ! -f /tmp/aem-blocks.pid || kill "$(cat /tmp/aem-blocks.pid)" || true
+          test -f /tmp/aem-blocks.log && tail -n 100 /tmp/aem-blocks.log || true
 
   links:
     runs-on: ubuntu-latest
