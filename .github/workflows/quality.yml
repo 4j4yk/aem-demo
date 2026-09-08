@@ -17,9 +17,13 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npx playwright install --with-deps chromium
-      - name: Test published AEM content
+      - name: Select AEM code preview
         env:
-          TEST_BASE_URL: https://main--aem-demo--4j4yk.aem.live
+          HEAD_REF: ${{ github.head_ref }}
+        run: |
+          ref="${HEAD_REF:-main}"
+          echo "TEST_BASE_URL=https://${ref//\//-}--aem-demo--4j4yk.aem.live" >> "$GITHUB_ENV"
+      - name: Test published AEM content
         run: npx playwright test tests/newsroom.spec.js
       - name: Start local block server and wait for readiness
         run: |
