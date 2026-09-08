@@ -1,7 +1,10 @@
 {
   "ci": {
     "collect": {
-      "url": ["http://localhost:3000/", "http://localhost:3000/stories/electric-platform"],
+      "url": [
+        "https://main--aem-demo--4j4yk.aem.live/",
+        "https://main--aem-demo--4j4yk.aem.live/stories/electric-platform"
+      ],
       "numberOfRuns": 2
     },
     "assert": {
